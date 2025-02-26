@@ -2,8 +2,8 @@
 pragma solidity ^0.8.20;
 
 contract MyToken {
-    string public name = "MyToken";
-    string public symbol = "MTK";
+    string public name = "Hola Token";
+    string public symbol = "HTK";
     uint8 public decimals = 18;
     uint256 public totalSupply;
 
@@ -33,7 +33,7 @@ contract MyToken {
     constructor(uint256 initialSupply) {
         owner = msg.sender;
         isMinter[msg.sender] = true;
-        totalSupply = initialSupply * 10 ** decimals;
+        totalSupply = initialSupply; // No extra decimals multiplication
         balanceOf[msg.sender] = totalSupply;
         emit Transfer(address(0), msg.sender, totalSupply);
     }
@@ -68,12 +68,11 @@ contract MyToken {
 
     function mint(address to, uint256 amount) public onlyMinter returns (bool) {
         require(to != address(0), "Cannot mint to zero address");
-        uint256 amountWithDecimals = amount * 10 ** decimals;
-        
-        totalSupply += amountWithDecimals;
-        balanceOf[to] += amountWithDecimals;
-        emit Mint(to, amountWithDecimals);
-        emit Transfer(address(0), to, amountWithDecimals);
+        // No extra decimals multiplication, assume amount is in wei
+        totalSupply += amount;
+        balanceOf[to] += amount;
+        emit Mint(to, amount);
+        emit Transfer(address(0), to, amount);
         return true;
     }
 
