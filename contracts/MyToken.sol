@@ -33,7 +33,7 @@ contract MyToken {
     constructor(uint256 initialSupply) {
         owner = msg.sender;
         isMinter[msg.sender] = true;
-        totalSupply = initialSupply; // No extra decimals multiplication
+        totalSupply = initialSupply; 
         balanceOf[msg.sender] = totalSupply;
         emit Transfer(address(0), msg.sender, totalSupply);
     }
@@ -68,7 +68,6 @@ contract MyToken {
 
     function mint(address to, uint256 amount) public onlyMinter returns (bool) {
         require(to != address(0), "Cannot mint to zero address");
-        // No extra decimals multiplication, assume amount is in wei
         totalSupply += amount;
         balanceOf[to] += amount;
         emit Mint(to, amount);
