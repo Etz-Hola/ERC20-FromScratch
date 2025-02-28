@@ -2,8 +2,10 @@
 pragma solidity ^0.8.20;
 
 contract MyToken {
+    //Stores 
     string public name = "Hola Token";
     string public symbol = "HTK";
+
     uint8 public decimals = 18;
     uint256 public totalSupply;
 
@@ -13,6 +15,7 @@ contract MyToken {
     address public owner;
     mapping(address => bool) public isMinter;
 
+    //Emitted all
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
     event Mint(address indexed to, uint256 amount);
